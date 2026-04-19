@@ -12,4 +12,4 @@
 
 ---
 
-[X](https://x.com/YOUR_HANDLE) &nbsp;·&nbsp; [email](mailto:YOUR_EMAIL@EXAMPLE.COM) &nbsp;·&nbsp; [LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
+[X](https://x.com/serhiitroinin) &nbsp;·&nbsp; [email](mailto:serhiitroinin@fastmail.com) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/serhii-troinin-a0b718127/)
