@@ -1,6 +1,10 @@
-# Hi, I'm [Your Name] 👋
+# Hi, I'm Serhii 👋
 
 > 🚧 **Placeholder profile** — this README is a scaffold so we can verify the GitHub profile rendering works. We'll iterate on the real content next.
+
+<!-- touch: 2026-04-20 to trigger profile re-index -->
+
+
 
 ## About me
 
