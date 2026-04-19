@@ -1,6 +1,7 @@
-<h1 align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=28&duration=2500&pause=3000&color=1A1A1A&center=true&vCenter=true&width=435&height=60&lines=Hi%2C+I'm+Serhii" alt="Hi, I'm Serhii" />
-</h1>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=28&duration=2200&pause=999999&color=F4EFE4&width=320&height=50&repeat=false&lines=Hi%2C+I'm+Serhii" />
+  <img alt="Hi, I'm Serhii" src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=28&duration=2200&pause=999999&color=4A5A66&width=320&height=50&repeat=false&lines=Hi%2C+I'm+Serhii" />
+</picture>
 
 ### Things I'm building
 
@@ -11,6 +12,4 @@
 
 ---
 
-<p align="center">
-  <a href="https://x.com/YOUR_HANDLE">X</a> &nbsp;·&nbsp; <a href="mailto:YOUR_EMAIL@EXAMPLE.COM">email</a> &nbsp;·&nbsp; <a href="https://linkedin.com/in/YOUR_PROFILE">LinkedIn</a>
-</p>
+[X](https://x.com/YOUR_HANDLE) &nbsp;·&nbsp; [email](mailto:YOUR_EMAIL@EXAMPLE.COM) &nbsp;·&nbsp; [LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
