@@ -3,6 +3,8 @@
   <img alt="Hi, I'm Serhii" src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=28&duration=2200&pause=999999&color=4A5A66&width=320&height=50&repeat=false&lines=Hi%2C+I'm+Serhii" />
 </picture>
 
+*I make the things I wished existed, with as much care as I can give them.*
+
 ### Things I'm building
 
 - **[mondrian-studio](https://github.com/serhiitroinin/mondrian-studio)** — Algorithmic atelier for Piet Mondrian-style neoplastic compositions. [Live demo](https://serhiitroinin.github.io/mondrian-studio/)
