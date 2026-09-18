@@ -4,7 +4,7 @@
     python3 build.py          # writes assets/*.svg and the block between the grid markers in README.md
     python3 build.py --mock   # also writes /tmp/profile-mock-{light,dark}.png (needs rsvg-convert)
 
-The grid is a set of rounded cards. Each card is its own SVG with a transparent margin, so each one
+The grid is a set of rounded cards on a 12 column grid. Each card is its own SVG with a transparent margin, so each one
 carries its own link in the README and the same files work on light and dark pages.
 """
 import os, re, subprocess, sys
@@ -17,13 +17,15 @@ INK, CREAM = "#1F1D1A", "#F4EFE4"
 SAND, CLAY, SAGE, SLATE, COAL, STRAW, ROSE = "#EADFCB", "#E0957A", "#A9C0B0", "#A7B8CE", "#2A2926", "#E6CF8B", "#DDB0B0"
 GAP, RADIUS = 12, 18
 
-# Featured cards: (row height, [(slug, width share, fill, title, [lines], tag, art)]). A slug that starts with # is an anchor.
-ROWS = [
-    (264, [("dictate", 520, SAND, "dictate", ["Hold a key, speak, release.", "On-device dictation for macOS."], "Swift · macOS", "wave"),
-           ("mondrian-studio", 328, CLAY, "mondrian-studio", ["Algorithmic atelier for", "Mondrian-style grids."], "TypeScript · web", "grid")]),
-    (190, [("glu", 246, SAGE, "glu", ["Libre 3 glucose", "in your shell."], "", "curve"),
-           ("#more-tools", 128, COAL, "+8", ["more tools"], "", "more"),
-           ("gpx-forge", 462, SLATE, "gpx-forge", ["Running routes from place", "names. Built for agents."], "", "route")]),
+# Featured cards sit on a 12 column grid of square cells. The grid is a stack of bands; every card in a band has
+# the height of the band, so each band is one line of images. Bands: (rows, [(slug, columns, fill, title, [lines], tag, art)]).
+# The columns of a band must sum to COLS. Two bands of 3 rows give a 12 x 6 grid.
+COLS, CELL = 12, 70
+BANDS = [
+    (3, [("dictate", 7, SAND, "dictate", ["Hold a key, speak, release.", "On-device dictation for macOS."], "Swift · macOS", "wave"),
+         ("mondrian-studio", 5, CLAY, "mondrian-studio", ["Algorithmic atelier for", "Mondrian-style grids."], "TypeScript · web", "grid")]),
+    (3, [("glu", 5, SAGE, "glu", ["FreeStyle Libre 3 glucose", "in your shell."], "TypeScript · CLI", "curve"),
+         ("gpx-forge", 7, SLATE, "gpx-forge", ["Running routes from place", "names. Built for agents."], "TypeScript · CLI", "route")]),
 ]
 
 # The list under the grid: (slug, fill, description). Glyphs are drawn on a 24 unit grid.
@@ -52,18 +54,19 @@ GLYPHS = {
 def art(kind, x, y, w, h, c, quiet):
     o = []
     if kind == "wave":
-        hs = [6, 10, 18, 30, 22, 40, 58, 34, 48, 70, 44, 26, 52, 36, 20, 28, 14, 8, 12, 6]
+        hs = [4, 6, 11, 18, 13, 24, 35, 20, 29, 42, 26, 16, 31, 22, 12, 17, 8, 5, 7, 4]
         for i, bh in enumerate(hs):
-            o.append(f'<rect x="{x + w - 70 - (len(hs) - i) * 11}" y="{y + h - 84 - bh / 2}" width="5" height="{bh}" rx="2.5" fill="{c if 5 < i < 13 else quiet}"/>')
+            o.append(f'<rect x="{x + w - 28 - (len(hs) - i) * 10}" y="{y + h - 44 - bh / 2}" width="5" height="{bh}" rx="2.5" fill="{c if 5 < i < 13 else quiet}"/>')
     elif kind == "grid":
-        bx, by, s = x + w - 112, y + h - 112, 88
+        bx, by, s = x + w - 94, y + h - 94, 70
         o.append(f'<rect x="{bx}" y="{by}" width="{s}" height="{s}" rx="3" fill="none" stroke="{c}" stroke-width="2.5"/>')
-        o.append(f'<path d="M{bx + 56} {by}v{s}M{bx} {by + 32}h{s}M{bx + 56} {by + 60}h32M{bx + 24} {by + 32}v56" stroke="{c}" stroke-width="2.5"/>')
-        o.append(f'<rect x="{bx + 57.5}" y="{by + 1.5}" width="29" height="29" fill="{c}"/><rect x="{bx + 1.5}" y="{by + 33.5}" width="21" height="53" fill="{quiet}"/>')
+        o.append(f'<path d="M{bx + 44} {by}v{s}M{bx} {by + 26}h{s}M{bx + 44} {by + 48}h26M{bx + 19} {by + 26}v44" stroke="{c}" stroke-width="2.5"/>')
+        o.append(f'<rect x="{bx + 45.5}" y="{by + 1.5}" width="23" height="23" fill="{c}"/><rect x="{bx + 1.5}" y="{by + 27.5}" width="16" height="41" fill="{quiet}"/>')
     elif kind == "curve":
-        bx, by = x + 24, y + h - 30
+        bx, by = x + 24, y + h - 56
         o.append(f'<rect x="{bx}" y="{by - 14}" width="{w - 48}" height="22" rx="4" fill="{quiet}" opacity="0.6"/>')
-        o.append(f'<path d="M{bx} {by}c20 -2 28 -18 48 -16s24 22 46 20 26 -26 50 -22 30 12 {w - 48 - 144} 8" fill="none" stroke="{c}" stroke-width="2.5" stroke-linecap="round"/>')
+        seg = (w - 48) / 5
+        o.append(f'<path d="M{bx} {by - 3}q{seg / 2:g} -18 {seg:g} 0' + f"t{seg:g} 0" * 4 + f'" fill="none" stroke="{c}" stroke-width="2.5" stroke-linecap="round"/>')
     elif kind == "route":
         bx, by = x + w - 190, y + h - 26
         o.append(f'<path d="M{bx} {by}c20 -40 45 5 70 -25s30 -45 60 -38 15 -28 30 -42" fill="none" stroke="{c}" stroke-width="2.5" stroke-dasharray="1 7" stroke-linecap="round"/>')
@@ -75,19 +78,15 @@ def card_svg(w, h, fill, title, lines, tag, kind):
     """One card on a transparent canvas. The margin of GAP/2 on each side makes the gaps of the grid."""
     m = GAP / 2
     tw, th = w + GAP, h + GAP
-    fg = CREAM if fill == COAL else INK
+    fg = INK
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{tw:g}" height="{th:g}" viewBox="0 0 {tw:g} {th:g}" role="img" aria-label="{escape(title)}">',
          f'<rect x="{m}" y="{m}" width="{w:g}" height="{h}" rx="{RADIUS}" fill="{fill}"/>']
-    if kind == "more":
-        o.append(f'<text x="{tw / 2:g}" y="{th / 2 + 4:g}" text-anchor="middle" font-family="{SANS}" font-size="44" font-weight="700" fill="{fg}">{escape(title)}</text>')
-        o.append(f'<text x="{tw / 2:g}" y="{th / 2 + 34:g}" text-anchor="middle" font-family="{MONO}" font-size="15" fill="{fg}" opacity="0.7">{escape(lines[0])} &#8595;</text>')
-    else:
-        o.append(art(kind, m, m, w, h, INK, INK + "55"))
-        o.append(f'<text x="{m + 24}" y="{m + 52}" font-family="{SANS}" font-size="{40 if w > 400 else 30}" font-weight="700" fill="{fg}">{escape(title)}</text>')
-        for i, l in enumerate(lines):
-            o.append(f'<text x="{m + 24}" y="{m + 86 + i * 27}" font-family="{SANS}" font-size="20" fill="{fg}" opacity="0.8">{escape(l)}</text>')
-        if tag:
-            o.append(f'<text x="{m + 24}" y="{m + h - 22}" font-family="{MONO}" font-size="15" letter-spacing="0.8" fill="{fg}" opacity="0.55">{escape(tag.upper())}</text>')
+    o.append(art(kind, m, m, w, h, INK, INK + "55"))
+    o.append(f'<text x="{m + 24}" y="{m + 52}" font-family="{SANS}" font-size="{40 if w > 400 else 32}" font-weight="700" fill="{fg}">{escape(title)}</text>')
+    for i, l in enumerate(lines):
+        o.append(f'<text x="{m + 24}" y="{m + 86 + i * 27}" font-family="{SANS}" font-size="20" fill="{fg}" opacity="0.8">{escape(l)}</text>')
+    if tag:
+        o.append(f'<text x="{m + 24}" y="{m + h - 22}" font-family="{MONO}" font-size="15" letter-spacing="0.8" fill="{fg}" opacity="0.55">{escape(tag.upper())}</text>')
     o.append("</svg>")
     return "".join(o), tw, th
 
@@ -100,19 +99,19 @@ def icon_svg(fill, glyph):
 def build():
     os.makedirs("assets", exist_ok=True)
     placed, html, cards_html, y = [], [], [], 0
-    for r, (h, cards) in enumerate(ROWS):
-        total = sum(c[1] for c in cards) + GAP * len(cards)
+    total = COLS * CELL
+    for rows, cards in BANDS:
+        assert sum(c[1] for c in cards) == COLS, "the columns of a band must sum to COLS"
         x = 0
-        for c, (slug, w, fill, title, lines, tag, kind) in enumerate(cards):
-            svg, tw, th = card_svg(w, h, fill, title, lines, tag, kind)
-            name = f"assets/card-{slug.lstrip('#')}.svg"
+        for slug, cols, fill, title, lines, tag, kind in cards:
+            svg, tw, th = card_svg(cols * CELL - GAP, rows * CELL - GAP, fill, title, lines, tag, kind)
+            name = f"assets/card-{slug}.svg"
             open(name, "w").write(svg)
             placed.append((name, x * 860 / total, y, 860 / total))
-            pct = int(tw / total * 100000) / 1000 - 0.005           # round down so a row never wraps
-            href = slug if slug.startswith("#") else GH + slug
-            cards_html.append(f'<a href="{href}"><img src="{name}" width="{pct:.3f}%" alt="{escape(title)}: {escape(" ".join(lines))}"></a>')
+            pct = int(cols / COLS * 100000) / 1000 - 0.005          # round down so a band never wraps
+            cards_html.append(f'<a href="{GH}{slug}"><img src="{name}" width="{pct:.3f}%" alt="{escape(title)}: {escape(" ".join(lines))}"></a>')
             x += tw
-        y += (h + GAP) * 860 / total
+        y += rows * CELL * 860 / total
     html += ["<p>" + "".join(cards_html) + "</p>", "", "### More tools", "", "<table>"]
     for i in range(0, len(LIST), 2):
         html.append("<tr>")

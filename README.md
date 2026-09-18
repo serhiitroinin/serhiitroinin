@@ -6,7 +6,7 @@
 *I make the things I wished existed, with as much care as I can give them.*
 
 <!-- grid:start -->
-<p><a href="https://github.com/serhiitroinin/dictate"><img src="assets/card-dictate.svg" width="61.004%" alt="dictate: Hold a key, speak, release. On-device dictation for macOS."></a><a href="https://github.com/serhiitroinin/mondrian-studio"><img src="assets/card-mondrian-studio.svg" width="38.985%" alt="mondrian-studio: Algorithmic atelier for Mondrian-style grids."></a><a href="https://github.com/serhiitroinin/glu"><img src="assets/card-glu.svg" width="29.582%" alt="glu: Libre 3 glucose in your shell."></a><a href="#more-tools"><img src="assets/card-more-tools.svg" width="16.050%" alt="+8: more tools"></a><a href="https://github.com/serhiitroinin/gpx-forge"><img src="assets/card-gpx-forge.svg" width="54.352%" alt="gpx-forge: Running routes from place names. Built for agents."></a></p>
+<p><a href="https://github.com/serhiitroinin/dictate"><img src="assets/card-dictate.svg" width="58.328%" alt="dictate: Hold a key, speak, release. On-device dictation for macOS."></a><a href="https://github.com/serhiitroinin/mondrian-studio"><img src="assets/card-mondrian-studio.svg" width="41.661%" alt="mondrian-studio: Algorithmic atelier for Mondrian-style grids."></a><a href="https://github.com/serhiitroinin/glu"><img src="assets/card-glu.svg" width="41.661%" alt="glu: FreeStyle Libre 3 glucose in your shell."></a><a href="https://github.com/serhiitroinin/gpx-forge"><img src="assets/card-gpx-forge.svg" width="58.328%" alt="gpx-forge: Running routes from place names. Built for agents."></a></p>
 
 ### More tools
 
