@@ -7,6 +7,7 @@
 
 ### Things I'm building
 
+- **[dictate](https://github.com/serhiitroinin/dictate)** — Hold-to-talk dictation app for macOS. Whisper runs on-device, and spoken self-corrections are repaired.
 - **[mondrian-studio](https://github.com/serhiitroinin/mondrian-studio)** — Algorithmic atelier for Piet Mondrian-style neoplastic compositions. [Live demo](https://serhiitroinin.github.io/mondrian-studio/)
 - **[gpx-forge](https://github.com/serhiitroinin/gpx-forge)** — CLI that builds road-snapped running routes from place names. Designed for AI agents.
 - **[strap](https://github.com/serhiitroinin/strap)** — WHOOP CLI. Recovery, strain, sleep, workouts, cycles from your shell.
