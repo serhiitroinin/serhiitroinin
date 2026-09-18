@@ -18,14 +18,14 @@ SAND, CLAY, SAGE, SLATE, COAL, STRAW, ROSE = "#EADFCB", "#E0957A", "#A9C0B0", "#
 GAP, RADIUS = 12, 18
 
 # Featured cards sit on a 12 column grid of square cells. The grid is a stack of bands; every card in a band has
-# the height of the band, so each band is one line of images. Bands: (rows, [(slug, columns, fill, title, [lines], tag, art)]).
+# the height of the band, so each band is one line of images. Bands: (rows, [(slug, columns, fill, title, [lines], art)]).
 # The columns of a band must sum to COLS. Two bands of 3 rows give a 12 x 6 grid.
 COLS, CELL = 12, 70
 BANDS = [
-    (3, [("dictate", 7, SAND, "dictate", ["Hold a key, speak, release.", "On-device dictation for macOS."], "Swift · macOS", "wave"),
-         ("mondrian-studio", 5, CLAY, "mondrian-studio", ["Algorithmic atelier for", "Mondrian-style grids."], "TypeScript · web", "grid")]),
-    (3, [("glu", 5, SAGE, "glu", ["FreeStyle Libre 3 glucose", "in your shell."], "TypeScript · CLI", "curve"),
-         ("gpx-forge", 7, SLATE, "gpx-forge", ["Running routes from place", "names. Built for agents."], "TypeScript · CLI", "route")]),
+    (3, [("dictate", 7, SAND, "dictate", ["Hold a key, speak, release.", "On-device dictation for macOS."], "wave"),
+         ("mondrian-studio", 5, CLAY, "mondrian-studio", ["Algorithmic atelier for", "Mondrian-style grids."], "grid")]),
+    (3, [("glu", 5, SAGE, "glu", ["FreeStyle Libre 3 glucose", "in your shell."], "curve"),
+         ("gpx-forge", 7, SLATE, "gpx-forge", ["Running routes from place", "names. Built for agents."], "route")]),
 ]
 
 # The list under the grid: (slug, fill, description). Glyphs are drawn on a 24 unit grid.
@@ -74,7 +74,7 @@ def art(kind, x, y, w, h, c, quiet):
     return "".join(o)
 
 
-def card_svg(w, h, fill, title, lines, tag, kind):
+def card_svg(w, h, fill, title, lines, kind):
     """One card on a transparent canvas. The margin of GAP/2 on each side makes the gaps of the grid."""
     m = GAP / 2
     tw, th = w + GAP, h + GAP
@@ -85,8 +85,6 @@ def card_svg(w, h, fill, title, lines, tag, kind):
     o.append(f'<text x="{m + 24}" y="{m + 52}" font-family="{SANS}" font-size="{40 if w > 400 else 32}" font-weight="700" fill="{fg}">{escape(title)}</text>')
     for i, l in enumerate(lines):
         o.append(f'<text x="{m + 24}" y="{m + 86 + i * 27}" font-family="{SANS}" font-size="20" fill="{fg}" opacity="0.8">{escape(l)}</text>')
-    if tag:
-        o.append(f'<text x="{m + 24}" y="{m + h - 22}" font-family="{MONO}" font-size="15" letter-spacing="0.8" fill="{fg}" opacity="0.55">{escape(tag.upper())}</text>')
     o.append("</svg>")
     return "".join(o), tw, th
 
@@ -103,8 +101,8 @@ def build():
     for rows, cards in BANDS:
         assert sum(c[1] for c in cards) == COLS, "the columns of a band must sum to COLS"
         x = 0
-        for slug, cols, fill, title, lines, tag, kind in cards:
-            svg, tw, th = card_svg(cols * CELL - GAP, rows * CELL - GAP, fill, title, lines, tag, kind)
+        for slug, cols, fill, title, lines, kind in cards:
+            svg, tw, th = card_svg(cols * CELL - GAP, rows * CELL - GAP, fill, title, lines, kind)
             name = f"assets/card-{slug}.svg"
             open(name, "w").write(svg)
             placed.append((name, x * 860 / total, y, 860 / total))
