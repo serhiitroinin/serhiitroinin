@@ -5,20 +5,38 @@
 
 *I make the things I wished existed, with as much care as I can give them.*
 
-### Things I'm building
+<!-- grid:start -->
+<p>
+<a href="https://github.com/serhiitroinin/dictate"><img src="assets/card-dictate.svg" width="61.004%" align="left" alt="dictate: Hold a key, speak, release. On-device dictation for macOS."></a>
+<a href="https://github.com/serhiitroinin/mondrian-studio"><img src="assets/card-mondrian-studio.svg" width="38.985%" align="left" alt="mondrian-studio: Algorithmic atelier for neoplastic compositions."></a>
+<a href="https://github.com/serhiitroinin/glu"><img src="assets/card-glu.svg" width="29.582%" align="left" alt="glu: Libre 3 glucose in your shell."></a>
+<a href="#more-tools"><img src="assets/card-more-tools.svg" width="16.050%" align="left" alt="+8: more tools"></a>
+<a href="https://github.com/serhiitroinin/gpx-forge"><img src="assets/card-gpx-forge.svg" width="54.352%" align="left" alt="gpx-forge: Road-snapped running routes from place names. Built for agents."></a>
+</p>
 
-- **[dictate](https://github.com/serhiitroinin/dictate)** — Hold-to-talk dictation app for macOS. Whisper runs on-device, and spoken self-corrections are repaired.
-- **[mondrian-studio](https://github.com/serhiitroinin/mondrian-studio)** — Algorithmic atelier for Piet Mondrian-style neoplastic compositions. [Live demo](https://serhiitroinin.github.io/mondrian-studio/)
-- **[gpx-forge](https://github.com/serhiitroinin/gpx-forge)** — CLI that builds road-snapped running routes from place names. Designed for AI agents.
-- **[strap](https://github.com/serhiitroinin/strap)** — WHOOP CLI. Recovery, strain, sleep, workouts, cycles from your shell.
-- **[cadence](https://github.com/serhiitroinin/cadence)** — Garmin Connect CLI. Training readiness, sleep, HRV, body battery, activities.
-- **[glu](https://github.com/serhiitroinin/glu)** — FreeStyle Libre 3 CGM CLI. Glucose, time-in-range, and configurable targets via LibreLinkUp.
-- **[rescuetime](https://github.com/serhiitroinin/rescuetime)** — RescueTime CLI. Productivity pulse, categories, top activities, and focus from your shell.
-- **[tick](https://github.com/serhiitroinin/tick)** — Todoist CLI. Tasks, projects, labels, and sections from your shell.
-- **[pigeon](https://github.com/serhiitroinin/pigeon)** — Email CLI for Gmail and Fastmail. Multi-account inbox, search, archive from your shell.
-- **[almanac](https://github.com/serhiitroinin/almanac)** — Google Calendar CLI. Multi-account agenda, events, and scheduling from your shell.
-- **[dnsimple-cli](https://github.com/serhiitroinin/dnsimple-cli)** — CLI for the DNSimple API. Manage domains, DNS records, and certificates from the terminal.
-- **[hostler](https://github.com/serhiitroinin/hostler)** — CLI for managing local development domains with nginx.
+<br clear="both">
+
+### More tools
+
+<table>
+<tr>
+<td width="50%"><a href="https://github.com/serhiitroinin/strap"><img src="assets/icon-strap.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/strap"><b>strap</b></a><br>&nbsp;<sub>WHOOP recovery, strain and sleep.</sub></td>
+<td width="50%"><a href="https://github.com/serhiitroinin/cadence"><img src="assets/icon-cadence.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/cadence"><b>cadence</b></a><br>&nbsp;<sub>Garmin readiness, HRV and activities.</sub></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://github.com/serhiitroinin/rescuetime"><img src="assets/icon-rescuetime.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/rescuetime"><b>rescuetime</b></a><br>&nbsp;<sub>Productivity pulse and focus time.</sub></td>
+<td width="50%"><a href="https://github.com/serhiitroinin/tick"><img src="assets/icon-tick.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/tick"><b>tick</b></a><br>&nbsp;<sub>Todoist tasks, projects and labels.</sub></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://github.com/serhiitroinin/pigeon"><img src="assets/icon-pigeon.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/pigeon"><b>pigeon</b></a><br>&nbsp;<sub>Gmail and Fastmail, multi-account.</sub></td>
+<td width="50%"><a href="https://github.com/serhiitroinin/almanac"><img src="assets/icon-almanac.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/almanac"><b>almanac</b></a><br>&nbsp;<sub>Google Calendar agenda and scheduling.</sub></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://github.com/serhiitroinin/dnsimple-cli"><img src="assets/icon-dnsimple-cli.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/dnsimple-cli"><b>dnsimple-cli</b></a><br>&nbsp;<sub>Domains, DNS records and certificates.</sub></td>
+<td width="50%"><a href="https://github.com/serhiitroinin/hostler"><img src="assets/icon-hostler.svg" width="40" height="40" align="left" alt=""></a>&nbsp;<a href="https://github.com/serhiitroinin/hostler"><b>hostler</b></a><br>&nbsp;<sub>Local dev domains with nginx.</sub></td>
+</tr>
+</table>
+<!-- grid:end -->
 
 ---
 
