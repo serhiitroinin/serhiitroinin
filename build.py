@@ -22,6 +22,10 @@ GAP, RADIUS = 12, 18
 # The columns of a band must sum to COLS. Two bands of 3 rows give a 12 x 6 grid.
 COLS, CELL = 12, 70
 BANDS = [
+    (3, [("reins", 7, STRAW, "reins", ["One runtime for Claude Code and Codex.", "Your app holds the reins."], "mark:reins"),
+         ("butler", 5, ROSE, "butler", ["A folder organised by an agent.", "You approve every move."], "mark:butler")]),
+    (3, [("easel", 5, SAGE, "easel", ["One whiteboard, two hands:", "yours and the agent's."], "mark:easel"),
+         ("sculpt", 7, SLATE, "sculpt", ["CAD with an agent. Real solids,", "exported to STEP and STL."], "mark:sculpt")]),
     (3, [("dictate", 7, SAND, "dictate", ["Hold a key, speak, release.", "On-device dictation for macOS."], "wave"),
          ("mondrian-studio", 5, CLAY, "mondrian-studio", ["Algorithmic atelier for", "Mondrian-style grids."], "grid")]),
     (3, [("glu", 5, SAGE, "glu", ["FreeStyle Libre 3 glucose", "in your shell."], "curve"),
@@ -51,9 +55,21 @@ GLYPHS = {
 }
 
 
+# The marks of the Reins family, on a 32 unit grid, from the brand kit of each repo.
+MARKS = {
+    "reins": '<rect x="10" y="5.5" width="12" height="7" rx="1.5" fill="{c}"/><path fill="none" stroke="{c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M8.5 13 16 27.5 23.5 13"/><circle fill="none" stroke="{c}" stroke-width="3" cx="8" cy="9" r="3.5"/><circle fill="none" stroke="{c}" stroke-width="3" cx="24" cy="9" r="3.5"/>',
+    "butler": '<path fill="none" stroke="{c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M12.5 13 5 8.5v15l7.5-4.5M19.5 13 27 8.5v15L19.5 19"/><rect x="12" y="11" width="8" height="10" rx="2" fill="{c}"/>',
+    "easel": '<path fill="none" stroke="{c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M16 4.5v2M5.5 22.5h21M11.5 22.5l-2 5M20.5 22.5l2 5"/><rect x="7" y="7" width="18" height="12.5" rx="1.5" fill="{c}"/>',
+    "sculpt": '<path fill="none" stroke="{c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M16 4.5 26 10v12l-10 5.5L6 22V10zM6 10l6 3.3M26 10l-6 3.3M16 27.5V21"/><path fill="{c}" stroke="{c}" stroke-width="3" stroke-linejoin="round" d="M12.8 14.2h6.4L16 19.8z"/>',
+}
+
+
 def art(kind, x, y, w, h, c, quiet):
     o = []
-    if kind == "wave":
+    if kind.startswith("mark:"):
+        s = 2.5 if w > 400 else 2
+        o.append(f'<g transform="translate({x + w - 24 - 32 * s} {y + h - 24 - 32 * s}) scale({s})">{MARKS[kind[5:]].format(c=c)}</g>')
+    elif kind == "wave":
         hs = [4, 6, 11, 18, 13, 24, 35, 20, 29, 42, 26, 16, 31, 22, 12, 17, 8, 5, 7, 4]
         for i, bh in enumerate(hs):
             o.append(f'<rect x="{x + w - 28 - (len(hs) - i) * 10}" y="{y + h - 44 - bh / 2}" width="5" height="{bh}" rx="2.5" fill="{c if 5 < i < 13 else quiet}"/>')
