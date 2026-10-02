@@ -183,7 +183,7 @@ def build():
         for mode in THEMES:
             write(f"assets/icon-{slug}-{mode}.svg", icon_svg(slug, mode))
         items.append(f'<a href="{GH}{slug}">{picture(f"assets/icon-{slug}", 'width="20" height="20" align="absmiddle"', "")}</a>&nbsp; '
-                     f'<a href="{GH}{slug}"><code>{slug}</code></a> {escape(desc)}<br>')
+                     f'<a href="{GH}{slug}">{slug}</a> {escape(desc)}<br>')
     readme = open("README.md").read()
     readme = replace_block(readme, "header", [f'<a href="{GH}">{picture("assets/header", 'width="100%"', "serhii troinin.")}</a>'])
     readme = replace_block(readme, "grid", ["<p>" + "".join(cards) + "</p>", "", "### More tools", "", "<p>"] + items + ["</p>"])
