@@ -31,6 +31,7 @@ FAMILY = {
     "dictate": ("#18807a", "#3fb8ad"),
     "mondrian-studio": ("#b0418a", "#e06fb6"),
     "gpx-forge": ("#2f6fb8", "#5fa0e8"),
+    "proof": ("#5e6b4e", "#798668"),
 }
 DEFAULT_TOOL = ("#5e6b4e", "#798668")
 GAP, RADIUS = 12, 12
@@ -39,18 +40,19 @@ GAP, RADIUS = 12, 12
 # the height of the band, so each band is one line of images. Bands: (rows, [(slug, columns, [lines])]).
 COLS, CELL = 12, 60
 BANDS = [
-    (3, [("reins", 7, ["One runtime for Claude Code and Codex.", "Your app holds the reins."]),
-         ("butler", 5, ["A folder organised by an agent.", "You approve every move."])]),
-    (3, [("easel", 5, ["One whiteboard, two hands:", "yours and the agent's."]),
-         ("sculpt", 7, ["CAD with an agent. Real solids,", "exported to STEP and STL."])]),
-    (3, [("dictate", 7, ["Hold a key, speak, release.", "On-device dictation for macOS."]),
-         ("mondrian-studio", 5, ["Algorithmic atelier for", "Mondrian-style grids."])]),
-    (3, [("glu", 5, ["FreeStyle Libre 3 glucose", "in your shell."]),
-         ("gpx-forge", 7, ["Running routes from place", "names. Built for agents."])]),
+    (3, [("reins", 6, ["One runtime for Claude Code and Codex.", "Your app holds the reins."]),
+         ("dictate", 6, ["Hold a key, speak, release.", "On-device dictation for macOS."])]),
+    (2.5, [("proof", 12, ["A shadcn registry for small, local-first tools.", "Base UI, Tailwind v4, one theme in light and dark."])]),
 ]
 
-# The list under the grid: (slug, description). Glyphs are ink on a 24 unit grid; strap uses its family mark.
+# The list under the grid: (slug, description). Tools with a mark show it; the rest get an ink glyph on a 24 unit grid.
 LIST = [
+    ("butler", "A folder organised by an agent. You approve every move."),
+    ("easel", "One whiteboard, two hands: yours and the agent's."),
+    ("sculpt", "CAD with an agent. Real solids, exported to STEP and STL."),
+    ("mondrian-studio", "Algorithmic atelier for Mondrian-style grids."),
+    ("gpx-forge", "Running routes from place names. Built for agents."),
+    ("glu", "FreeStyle Libre 3 glucose in your shell."),
     ("strap", "WHOOP recovery, strain and sleep."),
     ("cadence", "Garmin readiness, HRV and activities."),
     ("rescuetime", "Productivity pulse and focus time."),
@@ -81,6 +83,7 @@ MARKS = {
     "strap": f'<path {STROKE} d="M4.5 16h6l2.5-6 4.5 12 2.5-6h7.5"/><rect x="9" y="25" width="14" height="3" rx="1.5" fill="{{a}}"/>',
     "dictate": f'<path {STROKE} d="M5 13.5v5M10.5 9v14M21.5 9v14M27 13.5v5"/><rect x="13.5" y="4.5" width="5" height="23" rx="2.5" fill="{{a}}"/>',
     "mondrian-studio": f'<rect x="17.5" y="6" width="8.5" height="8" fill="{{a}}"/><g {STROKE}><rect x="4.5" y="4.5" width="23" height="23" rx="1.5"/><path d="M16 4.5v23M4.5 15.5h23M16 21.5h11.5"/></g>',
+    "proof": f'<path {STROKE} d="M7 8v19"/><circle {STROKE} cx="14" cy="15" r="6.5"/><rect x="23" y="19.5" width="5.5" height="5.5" rx="0.5" fill="{{a}}"/>',
     "gpx-forge": f'<path {STROKE} stroke-dasharray="0.1 5" d="M8 25c3-6 7-2 10-7s2-8 7-10"/><circle cx="7.5" cy="25" r="3.6" fill="{{a}}"/><circle {STROKE} cx="25" cy="7.5" r="3"/>',
 }
 
@@ -175,19 +178,15 @@ def build():
                 write(f"assets/card-{slug}-{mode}.svg", svg)
             pct = int(cols / COLS * 100000) / 1000 - 0.005  # round down so a band never wraps
             cards.append(f'<a href="{GH}{slug}">{picture(f"assets/card-{slug}", f'width="{pct:.3f}%"', f"{slug}: {' '.join(lines)}")}</a>')
-    table = ["<table>"]
-    for i in range(0, len(LIST), 2):
-        table.append("<tr>")
-        for slug, desc in LIST[i:i + 2]:
-            for mode in THEMES:
-                write(f"assets/icon-{slug}-{mode}.svg", icon_svg(slug, mode))
-            table.append(f'<td><a href="{GH}{slug}">{picture(f"assets/icon-{slug}", 'width="26" height="26" align="absmiddle"', "")}</a>&nbsp; '
-                         f'<a href="{GH}{slug}"><code>{slug}</code></a><br><sub>{escape(desc)}</sub></td>')
-        table.append("</tr>")
-    table.append("</table>")
+    items = []
+    for slug, desc in LIST:
+        for mode in THEMES:
+            write(f"assets/icon-{slug}-{mode}.svg", icon_svg(slug, mode))
+        items.append(f'<a href="{GH}{slug}">{picture(f"assets/icon-{slug}", 'width="20" height="20" align="absmiddle"', "")}</a>&nbsp; '
+                     f'<a href="{GH}{slug}"><code>{slug}</code></a> {escape(desc)}<br>')
     readme = open("README.md").read()
     readme = replace_block(readme, "header", [f'<a href="{GH}">{picture("assets/header", 'width="100%"', "serhii troinin.")}</a>'])
-    readme = replace_block(readme, "grid", ["<p>" + "".join(cards) + "</p>", "", "### More tools", ""] + table)
+    readme = replace_block(readme, "grid", ["<p>" + "".join(cards) + "</p>", "", "### More tools", "", "<p>"] + items + ["</p>"])
     write("README.md", readme)
     return len(cards)
 
